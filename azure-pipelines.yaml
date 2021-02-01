@@ -1,0 +1,18 @@
+trigger:
+  - master
+
+pool: 
+  vmImage: ubuntu-20.04
+
+stages:
+  - stage: mirror
+    jobs:
+      - job: mirror
+        steps:
+        - task: swellaby.mirror-git-repository.mirror-git-repository-vsts-task.mirror-git-repository-vsts-task@1
+          displayName: mirror repo
+          inputs:
+            sourceGitRepositoryUri: 'https://github.com/AkhilGNair/clobber'
+            destinationGitRepositoryUri: 'https://dev.azure.com/ghd-development/StrategicInsights/_git/clobber'
+            destinationGitRepositoryPersonalAccessToken: ghd-development:$(System.AccessToken)
+
